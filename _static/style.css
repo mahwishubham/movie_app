@@ -1,0 +1,45 @@
+body {
+    background: #F5F5F5;
+}
+
+.list-movies-title h1 {
+    color: #333;
+}
+
+.card {
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.02);
+}
+
+.movie-poster {
+    height: 300px;
+    object-fit: cover;
+}
+
+.movie-title,
+.movie-year,
+.movie-rating {
+    color: #333;
+}
+
+.notes {
+    opacity: 0; /* initially the notes are invisible */
+    transition: opacity 0.3s ease; /* this is the transition effect for the notes */
+    color: #666;
+}
+
+.card:hover .notes {
+    opacity: 1; /* the notes become visible when the card is hovered */
+}
+
+.movie-title {
+    color: #007BFF;  /* Bootstrap primary color */
+    font-weight: bold;
+}
+
+.movie-details .badge {
+    border-radius: 25px;
+}
