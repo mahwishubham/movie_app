@@ -19,6 +19,7 @@ class MovieApp:
 
     def __init__(self, storage):
         self._storage = storage
+        self._util = Utility(storage)
 
     def _command_list_movies(self):
         """
@@ -53,13 +54,44 @@ class MovieApp:
         print(Fore.MAGENTA, "Enter movie notes:", Style.RESET_ALL, end="\t")
         notes = input()
         self._storage.update_movie(title, notes)
-    
+
     def _command_generate_website(self):
         """
         Command to generate website_html.
         """
-        util = Utility(self._storage)
-        util.generate_website()
+        self._util.generate_website()
+
+    def _command_get_stats(self):
+        """
+        Get the statistics of the movies in the database
+        """
+        self._util.stats()
+
+    def _command_get_random_movie(self):
+        """
+        Get a Random movie from the database
+        """
+        self._util.random_movie()
+
+    def _command_search_movie(self):
+        """
+        Search a movie in the database
+        """
+        print(Fore.MAGENTA, "Enter Movie Name:", Style.RESET_ALL, end="\t")
+        query = input()
+        self._util.search_movie(query)
+
+    def _command_get_sorted_movie(self):
+        """
+        Get sorted movies by rating
+        """
+        self._util.movies_sorted_by_rating()
+    
+    def _command_get_histogram(self):
+        """
+        Generate a Histogram from data
+        """
+        self._util.create_rating_histogram()
 
     def run(self):
         """
@@ -70,12 +102,17 @@ class MovieApp:
         while True:
             print(Fore.GREEN, "********** My Movies Database **********", Style.RESET_ALL)
             print(Fore.BLUE, '''Movie Menu:
-            0. Exit
-            1. List movies
-            2. Add movies
-            3. Delete movies
-            4. Update movies
-            5. Generate Website
+            0.  Exit
+            1.  List movies
+            2.  Add movies
+            3.  Delete movies
+            4.  Update movies
+            5.  Generate Website
+            6.  Stats
+            7.  Random movies
+            8.  Search movies
+            9.  Movies sorted by rating
+            10. Histogram
             ''', Style.RESET_ALL)
 
             print(Fore.MAGENTA, "\n\nEnter 0, 1, 2, 3, 4:", Style.RESET_ALL, end="\t")
@@ -92,6 +129,16 @@ class MovieApp:
             elif selection == "5":
                 self._command_generate_website()
                 print("Website Created!")
+            elif selection == "6":
+                self._command_get_stats()
+            elif selection == "7":
+                self._command_get_random_movie()
+            elif selection == "8":
+                self._command_search_movie()
+            elif selection == "9":
+                self._command_get_sorted_movie()
+            elif selection == "10":
+                self._command_get_histogram()
             elif selection == "0":
                 print("Goodbye!")
                 break

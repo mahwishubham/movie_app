@@ -29,7 +29,7 @@ class StorageJson(IStorage):
         self._file_path = file_path
         self._api_requester = api_requester
 
-    def _load_movies(self):
+    def load_movies(self):
         """
         Private method to load movies from the JSON file.
 
@@ -58,7 +58,7 @@ class StorageJson(IStorage):
         List all movies in the database.
 
         """
-        movies = self._load_movies()
+        movies = self.load_movies()
         if not movies:
             print("No movies found in the database.")
         else:
@@ -81,7 +81,7 @@ class StorageJson(IStorage):
             title (str): The title of the movie to be added.
 
         """
-        movies = self._load_movies()
+        movies = self.load_movies()
         if title in movies:
             print(f"Movie {title} already exists!")
             return
@@ -102,7 +102,7 @@ class StorageJson(IStorage):
             title (str): The title of the movie to be deleted.
 
         """
-        movies = self._load_movies()
+        movies = self.load_movies()
         if title in movies:
             del movies[title]
             self._save_movies(movies)
@@ -119,7 +119,7 @@ class StorageJson(IStorage):
             notes (str): The additional notes for the movie.
 
         """
-        movies = self._load_movies()
+        movies = self.load_movies()
         title_lowercase = title.lower()
         movies_lowercase = {k.lower(): v for k, v in movies.items()}
         if movies_lowercase.get(title_lowercase):

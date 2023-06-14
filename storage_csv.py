@@ -28,7 +28,7 @@ class StorageCsv(IStorage):
         self._file_path = file_path
         self._api_requester = api_requester
 
-    def _load_movies(self):
+    def load_movies(self):
         """
         Load movies from the CSV file.
 
@@ -39,7 +39,7 @@ class StorageCsv(IStorage):
         if os.path.exists(self._file_path):
             data_frame = pd.read_csv(self._file_path, index_col=0)
             return data_frame.to_dict('index')
-        return {}
+        return {}    
 
     def _save_movies(self, movies):
         """
@@ -57,7 +57,7 @@ class StorageCsv(IStorage):
         List all movies in the database.
 
         """
-        movies = self._load_movies()
+        movies = self.load_movies()
         if not movies:
             print("No movies found in the database.")
         else:
@@ -80,7 +80,7 @@ class StorageCsv(IStorage):
             title (str): The title of the movie to be added.
 
         """
-        movies = self._load_movies()
+        movies = self.load_movies()
         if title in movies:
             print(f"Movie {title} already exists!")
             return
@@ -101,7 +101,7 @@ class StorageCsv(IStorage):
             title (str): The title of the movie to be deleted.
 
         """
-        movies = self._load_movies()
+        movies = self.load_movies()
         if title in movies:
             del movies[title]
             self._save_movies(movies)
@@ -118,7 +118,7 @@ class StorageCsv(IStorage):
             notes (str): The additional notes for the movie.
 
         """
-        movies = self._load_movies()
+        movies = self.load_movies()
         if title in movies:
             movies[title]['notes'] = notes
             self._save_movies(movies)
